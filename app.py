@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__, template_folder='./')
 
-# Conversion functions
+# --- Conversion Logic ---
 def kg_to_grams(kg):
     return kg * 1000
 
@@ -33,8 +33,8 @@ def main_conversion_function(value, from_unit, to_unit):
     elif from_unit == 'kg' and to_unit == 'pounds':
         return kg_to_pounds(value)
     elif from_unit == 'pounds' and to_unit == 'kg':
-        # --- THE BUG IS HERE ---
-        return -pounds_to_kg(value) 
+        # --- INTENTIONAL BUG FOR ASSESSMENT ---
+        return -pounds_to_kg(value)
     elif from_unit == 'grams' and to_unit == 'pounds':
         return grams_to_pounds(value)
     elif from_unit == 'pounds' and to_unit == 'grams':
@@ -58,5 +58,4 @@ def index():
     return render_template('index.html', result=result)
 
 if __name__ == '__main__':
-    # Added host='0.0.0.0' so it works inside Docker
     app.run(host='0.0.0.0', port=5000)
